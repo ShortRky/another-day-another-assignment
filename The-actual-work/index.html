@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <input type="text" id="playerName" placeholder="Enter your name">
+            <input type="password" id="adminCode" placeholder="Admin code (optional)">
+            <button id="startGame">Start Game</button>
+        </div>
+    </div>
+    <div class="game-container">
+        <div class="admin-panel hidden" id="adminPanel">
+            <button id="giveCookies">+1000 Cookies</button>
+            <button id="giveAutoClickers">+5 Auto Clickers</button>
+            <button id="toggleGolden">Spawn Golden Cookie</button>
+        </div>
+        <h1>Cookie Clicker</h1>
+        <div id="playerInfo">Welcome, Player!</div>
+        <div class="cookie-section">
+            <div id="goldenCookie" class="golden-cookie hidden">✨</div>
+            <div id="cookie" class="cookie">🍪</div>
+            <div id="counter">Cookies: 0</div>
+            <div id="multiplier" class="multiplier"></div>
+        </div>
+        <div class="upgrades">
+            <button id="autoClickerBtn">Buy Auto Clicker (Cost: 50 cookies)</button>
+        </div>
+        <div id="achievements" class="achievements">
+            <h2>Achievements</h2>
+            <div id="achievementsList"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
