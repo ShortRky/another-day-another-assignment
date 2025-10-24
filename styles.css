@@ -5,21 +5,69 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
+    padding: 20px;
 }
 
-.game-container {
-    text-align: center;
+.translator-container {
+    width: 100%;
+    max-width: 900px;
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
-    padding-top: 4rem;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    margin-top: 3rem;
+}
+
+.translation-box {
+    display: flex;
+    gap: 20px;
+    margin: 2rem 0;
+    align-items: stretch;
+}
+
+.input-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+select option {
+    background: #2a5298;
+    color: white;
+}
+
+textarea {
+    height: 200px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    resize: none;
+}
+
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .cookie {

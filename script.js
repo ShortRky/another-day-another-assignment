@@ -1,11 +1,14 @@
-let cookies = 0;
-let autoClickers = 0;
-let multiplier = 1;
-let achievements = [];
-let playerName = "Player";
-let isAdmin = false;
-const autoClickerCost = 50;
-const ADMIN_CODE = "admin123"; // The secret admin code
+// MyMemory Translation API endpoint
+const API_URL = 'https://api.mymemory.translated.net/get';
+
+// DOM Elements
+const sourceText = document.getElementById('sourceText');
+const targetText = document.getElementById('targetText');
+const sourceLanguage = document.getElementById('sourceLanguage');
+const targetLanguage = document.getElementById('targetLanguage');
+const translateBtn = document.getElementById('translateBtn');
+const swapBtn = document.getElementById('swapLanguages');
+const status = document.getElementById('status');
 
 const ACHIEVEMENTS = {
     ROOKIE: { name: "Cookie Rookie", requirement: 100, description: "Earn 100 cookies" },
@@ -139,6 +142,59 @@ function displayAchievement(achievement) {
     achievementDiv.textContent = `🏆 ${achievement.name} - ${achievement.description}`;
     document.getElementById('achievementsList').appendChild(achievementDiv);
 }
+
+// Translation function
+async function translateText() {
+    const text = sourceText.value.trim();
+    if (!text) return;
+
+    const sourceLang = sourceLanguage.value;
+    const targetLang = targetLanguage.value;
+    
+    status.textContent = 'Translating...';
+    translateBtn.disabled = true;
+
+    try {
+        const response = await fetch(`${API_URL}?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}`);
+        const data = await response.json();
+        
+        if (data.responseStatus === 200) {
+            targetText.value = data.responseData.translatedText;
+            status.textContent = 'Translation complete!';
+            setTimeout(() => status.textContent = '', 2000);
+        } else {
+            throw new Error(data.responseDetails || 'Translation failed');
+        }
+    } catch (error) {
+        status.textContent = `Error: ${error.message}`;
+        setTimeout(() => status.textContent = '', 3000);
+    } finally {
+        translateBtn.disabled = false;
+    }
+}
+
+// Swap languages function
+function swapLanguages() {
+    const tempLang = sourceLanguage.value;
+    const tempText = sourceText.value;
+    
+    sourceLanguage.value = targetLanguage.value;
+    targetLanguage.value = tempLang;
+    
+    sourceText.value = targetText.value;
+    targetText.value = tempText;
+}
+
+// Event listeners
+translateBtn.addEventListener('click', translateText);
+swapBtn.addEventListener('click', swapLanguages);
+
+// Auto-translate on source text change (with debounce)
+let timeout;
+sourceText.addEventListener('input', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(translateText, 1000);
+});
 
 // Auto clicker functionality
 setInterval(() => {
